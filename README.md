@@ -1,0 +1,2 @@
+# TBGenoPipe
+Tuberculosis Genomic Pipeline
