@@ -94,7 +94,7 @@ results/
 logs/
 old_config_based/
 envs/kma.yaml
-rules/03_taxonomy_check.smk
+workflow/rules/03_taxonomy_check.smk
 TODO.md
 testing.ipynb
 test_pipe.sh
