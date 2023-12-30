@@ -1,0 +1,20 @@
+include: "rules/00_common.smk"
+
+
+## Target rule -----------------------------------------------
+rule all:
+    input:
+        expand("results/VCF/{run}.vcf.gz", run=df["Run"]),
+        "results/stats/multiqc/mapping/multiqc_data",
+        "results/stats/multiqc/calling/multiqc_data",
+
+
+## Workflow rules --------------------------------------------
+
+
+include: "rules/01_download_reads.smk"
+include: "rules/02_download_reference.smk"
+include: "rules/03_mapping.smk"
+include: "rules/04_gather_mapping_stats.smk"
+include: "rules/05_variant_calling.smk"
+include: "rules/06_gather_variants_stats.smk"

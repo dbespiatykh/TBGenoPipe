@@ -1,0 +1,9 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - kingfisher
+  - parallel-fastq-dump
+  - sra-tools>=3.0.0
+  - ncbi-datasets-cli

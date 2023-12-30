@@ -1,0 +1,8 @@
+channels:
+  - conda-forge
+  - bioconda
+  - anaconda
+  - defaults
+dependencies:
+  - kma
+  - gawk

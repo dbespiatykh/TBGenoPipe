@@ -1,0 +1,135 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+
+description: snakemake configuration file
+
+type: object
+
+properties:
+  FILES:
+    type: object
+    properties:
+      runs:
+        type: string
+    required:
+      - runs
+
+  LINKS:
+    type: object
+    properties:
+      mask:
+        type: string
+    required:
+      - mask
+
+  REFERENCE:
+    type: object
+    properties:
+      refseq-accession:
+        type: array
+        items:
+          type: string
+          default: "GCF_000195955.2"
+      archive:
+        type: array
+        items:
+          type: string
+          default: "resources/ref/GCF_000195955.2.zip"
+      fasta:
+        type: array
+        items:
+          type: string
+          default: "resources/ref/NC_000962.3.fna"
+    required:
+      - refseq-accession
+      - archive
+      - fasta
+
+  KINGFISHER:
+    type: object
+    properties:
+      threads:
+        type: integer
+        default: 4
+    required:
+      - threads
+
+  PARALLEL-FASTQ-DUMP:
+    type: object
+    properties:
+      threads:
+        type: integer
+        default: 4
+    required:
+      - threads
+
+  BWA:
+    type: object
+    properties:
+      threads:
+        type: integer
+        default: 4
+    required:
+      - threads
+
+  MOSDEPTH:
+    type: object
+    properties:
+      threads:
+        type: integer
+        default: 4
+    required:
+      - threads
+
+  FASTQC:
+    type: object
+    properties:
+      threads:
+        type: integer
+        default: 4
+      memory:
+        type: integer
+        default: 1024
+    required:
+      - threads
+      - memory
+
+  BCFTOOLS:
+    type: object
+    properties:
+      mpileup:
+        threads:
+          type: integer
+          default: 4
+      call:
+        threads:
+          type: integer
+          default: 4
+      view:
+        threads:
+          type: integer
+          default: 4
+      index:
+        threads:
+          type: integer
+          default: 1
+      stats:
+        threads:
+          type: integer
+          default: 1
+    required:
+      - mpileup
+      - call
+      - view
+      - index
+      - stats
+
+required:
+  - FILES
+  - LINKS
+  - REFERENCE
+  - KINGFISHER
+  - PARALLEL-FASTQ-DUMP
+  - BWA
+  - MOSDEPTH
+  - FASTQC
+  - BCFTOOLS

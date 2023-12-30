@@ -1,0 +1,43 @@
+# You can adjust the parameters according to your setup
+
+FILES:
+  runs: config/accessions_PE_SE.tsv # The path to the tab-separated file with run accessions
+
+LINKS:
+  mask: https://raw.githubusercontent.com/mbhall88/head_to_head_pipeline/master/analysis/baseline_variants/resources/compass-mask.bed
+
+REFERENCE:
+  refseq-accession:
+    - GCF_000195955.2 # Mycobacterium tuberculosis H37Rv RefSeq assembly accession number
+  archive:
+    - resources/ref/GCF_000195955.2.zip # NCBI datasets archive name and location
+  fasta:
+    - resources/ref/NC_000962.3.fa # Reference filename and location
+
+KINGFISHER:
+  threads: 4 # Threads for kingfisher get
+
+PARALLEL-FASTQ-DUMP:
+  threads: 4 # Threads for parallel-fastq-dump
+
+BWA:
+  threads: 4 # Threads for BWA-MEM
+
+MOSDEPTH:
+  threads: 4 # Threads for Mosdepth
+
+FASTQC:
+  threads: 4 # Threads for FastQC
+  memory: 1024 # Memory for FastQC
+
+BCFTOOLS:
+  mpileup:
+    threads: 4 # Threads for Bcftools mpileup
+  call:
+    threads: 4 # Threads for Bcftools call
+  view:
+    threads: 4 # Threads for Bcftools view
+  index:
+    threads: 1 # Threads for Bcftools index
+  stats:
+    threads: 1 # Threads for Bcftools stats
