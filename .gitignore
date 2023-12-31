@@ -101,5 +101,6 @@ test_pipe.sh
 run_pipe.sh
 remove_results.sh
 formatting.sh
+resources/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,sublimetext
