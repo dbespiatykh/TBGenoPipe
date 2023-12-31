@@ -19,7 +19,7 @@ rule download_sra:
         """
 
 
-checkpoint dump_fastq:
+rule dump_fastq:
     input:
         rules.download_sra.output.sra,
     output:
@@ -50,9 +50,9 @@ checkpoint dump_fastq:
 
 rule remove_junk:
     input:
-        expand("results/FASTQ/{run}", run=df["Run"]),
+        rules.dump_fastq.output.dir,
     log:
-        "logs/downloading/remove_junks.log",
+        "logs/downloading/{run}.remove_junk.log",
     shell:
         """
         find {input} -type f -size 0 -delete && echo Junk is removed &>{log}
