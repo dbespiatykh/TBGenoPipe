@@ -102,5 +102,6 @@ run_pipe.sh
 remove_results.sh
 formatting.sh
 resources/
+workflow/envs/kma.yaml
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,sublimetext
