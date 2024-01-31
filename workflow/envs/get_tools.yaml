@@ -3,7 +3,8 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - kingfisher
+  - kingfisher>=0.4.1
   - parallel-fastq-dump
-  - sra-tools>=3.0.0
+  - sra-tools>=3.0.5
   - ncbi-datasets-cli
+  - unzip
