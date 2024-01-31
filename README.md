@@ -7,9 +7,7 @@ Tuberculosis Genomic Pipeline
 #### Conda
 
 ```bash
-git clone https://github.com/dbespiatykh/TBGenoPipe.git
-
-cd TBGenoPipe
+git clone https://github.com/dbespiatykh/TBGenoPipe.git && cd TBGenoPipe
 
 micromamba create -n snakemake -c conda-forge -c bioconda snakemake mamba
 
@@ -25,9 +23,9 @@ snakemake --conda-frontend mamba --use-conda -c 48 --keep-going --retries 5 --re
 #### Docker
 
 ```bash
-git clone https://github.com/dbespiatykh/TBGenoPipe.git
+git clone https://github.com/dbespiatykh/TBGenoPipe.git && cd TBGenoPipe
 
-cd TBGenoPipe
+docker pull --platform linux/amd64 snakemake/snakemake:stable
 
 #test
 sudo docker run \
