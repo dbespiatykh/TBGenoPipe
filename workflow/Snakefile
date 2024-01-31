@@ -5,8 +5,7 @@ include: "rules/00_common.smk"
 rule all:
     input:
         expand("results/VCF/{run}.vcf.gz", run=df["Run"]),
-        "results/stats/multiqc/mapping/multiqc_data",
-        "results/stats/multiqc/calling/multiqc_data",
+        "results/stats/multiqc/multiqc_data",
 
 
 ## Workflow rules --------------------------------------------
@@ -18,3 +17,4 @@ include: "rules/03_mapping.smk"
 include: "rules/04_gather_mapping_stats.smk"
 include: "rules/05_variant_calling.smk"
 include: "rules/06_gather_variants_stats.smk"
+include: "rules/07_aggregate_stats.smk"
