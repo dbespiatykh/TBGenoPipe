@@ -56,5 +56,5 @@ rule remove_junk:
         "logs/downloading/{run}.remove_junk.log",
     shell:
         """
-        find {input} -type f -size 0 -delete -print && echo Junk is removed! &>{log}
+        (find {input} ! -name '.*' -type f -size 0 -delete -print && echo Junk is removed!) &>{log}
         """
