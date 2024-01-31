@@ -50,8 +50,11 @@ properties:
       threads:
         type: integer
         default: 4
+      runs:
+        type: string
     required:
       - threads
+      - directory
 
   PARALLEL-FASTQ-DUMP:
     type: object
