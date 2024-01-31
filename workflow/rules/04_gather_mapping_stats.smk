@@ -40,22 +40,3 @@ rule fastqc:
         mem_mb=config["FASTQC"]["memory"],
     wrapper:
         "v3.0.3/bio/fastqc"
-
-
-rule multiqc_mapping:
-    input:
-        expand("results/stats/samtools_stats/{run}.samtools.txt", run=df["Run"]),
-        expand("results/stats/mosdepth/{run}.mosdepth.global.dist.txt", run=df["Run"]),
-        expand("results/stats/mosdepth/{run}.mosdepth.summary.txt", run=df["Run"]),
-        expand("results/stats/fastqc/{run}.html", run=df["Run"]),
-        expand("results/stats/fastqc/{run}_fastqc.zip", run=df["Run"]),
-    output:
-        "results/stats/multiqc/mapping/multiqc.html",
-        directory("results/stats/multiqc/mapping/multiqc_data"),
-    params:
-        extra="--data-dir",
-        use_input_files_only=True,
-    log:
-        "logs/multiqc/mapping.log",
-    wrapper:
-        "v3.0.3/bio/multiqc"
