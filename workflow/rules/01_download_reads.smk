@@ -1,21 +1,22 @@
 rule download_sra:
     output:
-        sra=temp("results/SRA/{run}.sra"),
+        sra=temp(touch("results/SRA/{run}.sra")),
     log:
         "logs/downloading/{run}.downloading.log",
     conda:
         "../envs/get_tools.yaml"
     params:
         threads=config["KINGFISHER"]["threads"],
+        directory=config["KINGFISHER"]["directory"],
     shell:
         """
         kingfisher get \
                 -r {wildcards.run} \
+                --output-directory {params.directory} \
                 -m aws-http aws-cp prefetch \
                 -f sra \
                 --download-threads {params.threads} \
-                --hide-download-progress --check-md5sums &>{log} &&
-                mv {wildcards.run}.sra {output.sra}
+                --hide-download-progress --check-md5sums &>{log}
         """
 
 
