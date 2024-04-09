@@ -30,6 +30,7 @@ docker pull --platform linux/amd64 snakemake/snakemake:stable
 #test
 sudo docker run \
 	-it \
+	--rm \
 	-v "$(pwd)":/mnt/TBGenoPipe \
 	--platform linux/amd64 snakemake/snakemake:stable \
 	bash -c "cd /mnt/TBGenoPipe && snakemake --conda-frontend mamba -np"
@@ -37,6 +38,7 @@ sudo docker run \
 #run
 sudo docker run \
 	-it \
+	-rm \
 	-v "$(pwd)":/mnt/TBGenoPipe \
 	--platform linux/amd64 snakemake/snakemake:stable \
 	bash -c "cd /mnt/TBGenoPipe && snakemake --conda-frontend mamba --use-conda -c 48 --keep-going --retries 5 --rerun-incomplete"
