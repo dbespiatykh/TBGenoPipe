@@ -27,7 +27,7 @@ rule bcftools_mpileup:
         ref=rules.download_reference.output.fasta,
         index=rules.samtools_genome_index.output,
     output:
-        pileup=temp("results/BCF/{run}.pileup.bcf"),
+        pileup=protected("results/BCF/{run}.pileup.bcf"),
     params:
         uncompressed_bcf=True,
         extra="--min-MQ 30 --ignore-overlaps --max-depth 3000",
