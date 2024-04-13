@@ -1,0 +1,3 @@
+Run	R1	R2
+ERR11243534	test_data/ERR11243534_1.fastq.gz	testing/ERR11243534_2.fastq.gz
+SRR18495829	test_data/SRR18495829.fastq.gz	
