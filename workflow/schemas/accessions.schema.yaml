@@ -1,0 +1,15 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+
+description: an entry in the sample sheet
+
+properties:
+  Run:
+    type: string
+    description: run accession
+  LibraryLayout:
+    type: string
+    description: Library layout (PAIRED/SINGLE)
+
+required:
+  - Run
+  - LibraryLayout
