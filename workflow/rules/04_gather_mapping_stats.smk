@@ -6,7 +6,7 @@ rule samtools_stats:
     log:
         "logs/samtools/stats/{run}.log",
     wrapper:
-        "v3.0.3/bio/samtools/stats"
+        "v3.8.0/bio/samtools/stats"
 
 
 rule mosdepth:
@@ -22,7 +22,7 @@ rule mosdepth:
         extra="--no-per-base --fast-mode --use-median",
     threads: config["MOSDEPTH"]["threads"]
     wrapper:
-        "v3.0.3/bio/mosdepth"
+        "v3.8.0/bio/mosdepth"
 
 
 rule fastqc:
@@ -39,4 +39,4 @@ rule fastqc:
     resources:
         mem_mb=config["FASTQC"]["memory"],
     wrapper:
-        "v3.0.3/bio/fastqc"
+        "v3.8.0/bio/fastqc"

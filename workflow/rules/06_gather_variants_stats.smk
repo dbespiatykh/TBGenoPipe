@@ -8,4 +8,4 @@ rule bcftools_stats:
         "results/stats/bcftools_stats/{run}.bcftools.txt",
     threads: config["BCFTOOLS"]["stats"]["threads"]
     wrapper:
-        "v3.0.3/bio/bcftools/stats"
+        "v3.8.0/bio/bcftools/stats"

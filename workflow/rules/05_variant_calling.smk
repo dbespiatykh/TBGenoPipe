@@ -35,7 +35,7 @@ rule bcftools_mpileup:
         "logs/bcftools/mpileup/{run}.log",
     threads: config["BCFTOOLS"]["mpileup"]["threads"]
     wrapper:
-        "v3.0.3/bio/bcftools/mpileup"
+        "v3.8.0/bio/bcftools/mpileup"
 
 
 rule bcftools_call:
@@ -51,7 +51,7 @@ rule bcftools_call:
         "logs/bcftools/call/{run}.log",
     threads: config["BCFTOOLS"]["call"]["threads"]
     wrapper:
-        "v3.0.3/bio/bcftools/call"
+        "v3.8.0/bio/bcftools/call"
 
 
 rule bcftools_view:
@@ -66,7 +66,7 @@ rule bcftools_view:
         extra="--include 'QUAL>20 && DP>10' --types snps",
     threads: config["BCFTOOLS"]["view"]["threads"]
     wrapper:
-        "v3.0.3/bio/bcftools/view"
+        "v3.8.0/bio/bcftools/view"
 
 
 rule bcftools_index:
@@ -78,4 +78,4 @@ rule bcftools_index:
         "logs/bcftools/index/{run}.log",
     threads: config["BCFTOOLS"]["index"]["threads"]
     wrapper:
-        "v3.0.3/bio/bcftools/index"
+        "v3.8.0/bio/bcftools/index"
