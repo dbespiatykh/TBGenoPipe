@@ -13,17 +13,21 @@ micromamba create -n snakemake -c conda-forge -c bioconda snakemake mamba
 
 micromamba activate snakemake
 
+chmod +x TBGenoPipe
+
 # test
-snakemake --conda-frontend mamba -np
+./TBGenoPipe -t 6 --type fastq -i config/reads_PE_SE.tsv --test
 
 # run
-snakemake --conda-frontend mamba --use-conda -c 48 --keep-going --retries 5 --rerun-incomplete
+./TBGenoPipe -t 6 --type fastq -i config/reads_PE_SE.tsv
 ```
 
 #### Docker
 
 ```bash
 git clone https://github.com/dbespiatykh/TBGenoPipe.git && cd TBGenoPipe
+
+chmod +x TBGenoPipe
 
 docker pull --platform linux/amd64 snakemake/snakemake:stable
 
@@ -33,7 +37,7 @@ sudo docker run \
 	--rm \
 	-v "$(pwd)":/mnt/TBGenoPipe \
 	--platform linux/amd64 snakemake/snakemake:stable \
-	bash -c "cd /mnt/TBGenoPipe && snakemake --conda-frontend mamba -np"
+	bash -c "cd /mnt/TBGenoPipe && ./TBGenoPipe -t 6 --type fastq -i config/reads_PE_SE.tsv --test"
 
 #run
 sudo docker run \
@@ -41,5 +45,11 @@ sudo docker run \
 	-rm \
 	-v "$(pwd)":/mnt/TBGenoPipe \
 	--platform linux/amd64 snakemake/snakemake:stable \
-	bash -c "cd /mnt/TBGenoPipe && snakemake --conda-frontend mamba --use-conda -c 48 --keep-going --retries 5 --rerun-incomplete"
+	bash -c "cd /mnt/TBGenoPipe && ./TBGenoPipe -t 6 --type fastq -i config/reads_PE_SE.tsv"
+```
+
+### Usage
+
+```bash
+./TbGenoPipe -t/--threads <num_threads> -i/--input <input_path> --type <sra/fastq> [--test]
 ```
