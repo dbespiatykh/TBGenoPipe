@@ -1,0 +1,20 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+
+description: an entry in the sample sheet
+
+# columns that the config/samples.csv file can have and which type they should be
+properties:
+  Run_accession:
+    type: string
+    description: sample name/identifier
+  R1:
+    type: string
+    description: path to read 1 in FASTQ format
+  R2:
+    type: string
+    description: path to read 2 in FASTQ format
+
+# columns that the config/samples.csv file must have to pass schema validation
+required:
+  - Run
+  - R1
