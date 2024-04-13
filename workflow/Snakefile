@@ -4,7 +4,9 @@ include: "rules/00_common.smk"
 ## Target rule -----------------------------------------------
 rule all:
     input:
-        expand("results/VCF/{run}.vcf.gz", run=df["Run"]),
+        expand("results/VCF/{run}.vcf.gz", run=accessions.index)
+        if not config["FASTQ"]["activate"]
+        else (expand("results/VCF/{run}.vcf.gz", run=reads.index)),
         "results/stats/multiqc/multiqc_data",
 
 
