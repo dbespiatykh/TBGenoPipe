@@ -18,7 +18,7 @@ rule bedtools_complement_bed:
     log:
         "logs/bedtools/complement_bed.log",
     wrapper:
-        "v3.0.3/bio/bedtools/complement"
+        "v3.8.0/bio/bedtools/complement"
 
 
 rule bcftools_mpileup:
