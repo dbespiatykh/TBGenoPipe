@@ -10,8 +10,13 @@ properties:
     properties:
       runs:
         type: string
-    required:
-      - runs
+      reads:
+        type: string
+    anyOf:
+      - required:
+          - runs
+      - required:
+          - reads
 
   LINKS:
     type: object
