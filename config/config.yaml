@@ -2,6 +2,10 @@
 
 FILES:
   runs: config/accessions_PE_SE.tsv # The path to the tab-separated file with run accessions
+  reads: config/reads_PE_SE.tsv # The path to the tab-separated file with reads paths
+
+FASTQ:
+  activate: false
 
 LINKS:
   mask: https://raw.githubusercontent.com/mbhall88/head_to_head_pipeline/master/analysis/baseline_variants/resources/compass-mask.bed
