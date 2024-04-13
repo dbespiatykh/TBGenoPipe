@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+config="config/config.yaml"
+
+# Parse command-line arguments
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    case $key in
+    -t | --threads)
+        THREADS="$2"
+        shift
+        shift
+        ;;
+    -i | --input)
+        INPUT="$2"
+        shift
+        shift
+        ;;
+    --type)
+        TYPE="$2"
+        shift
+        shift
+        ;;
+    --test)
+        TEST=true
+        shift
+        ;;
+    *)
+        echo "Unknown option: $1"
+        exit 1
+        ;;
+    esac
+done
+
+# Check if mandatory arguments are provided
+if [[ -z $THREADS || -z $INPUT || -z $TYPE ]]; then
+    echo "Usage: TbGenoPipe -t/--threads <num_threads> -i/--input <input_path> --type <sra/fastq> [--test]"
+    exit 1
+fi
+
+# Replace the appropriate path in the config file based on the type
+if [[ $TYPE == "sra" ]]; then
+    sed -i "s|^  runs:[[:space:]]*[^[:space:]]*|  runs: $INPUT|" "$config"
+    sed -i "s|activate: .*|activate: false|" "$config"
+elif [[ $TYPE == "fastq" ]]; then
+    sed -i "s|^  reads:[[:space:]]*[^[:space:]]*|  reads: $INPUT|" "$config"
+    sed -i "s|activate: .*|activate: true|" "$config"
+else
+    echo "Invalid type. Use 'sra' for SRA runs and 'fastq' for FASTQ reads."
+    exit 1
+fi
+
+# Run snakemake with provided arguments
+if [[ $TEST ]]; then
+    echo "Running in dry-run mode"
+    snakemake --conda-frontend mamba -np
+else
+    snakemake --conda-frontend mamba --use-conda -c "$THREADS" --keep-going --retries 3 --rerun-incomplete
+fi
+
+# Restore original config files
+#git checkout -- "$config"
