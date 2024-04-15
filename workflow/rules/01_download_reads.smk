@@ -25,10 +25,10 @@ if not config["FASTQ"]["activate"]:
         input:
             rules.download_sra.output.sra,
         output:
-            r1=touch("results/FASTQ/{run}/{run}_1.fastq.gz"),
-            r2=touch("results/FASTQ/{run}/{run}_2.fastq.gz"),
-            single=touch("results/FASTQ/{run}/{run}.fastq.gz"),
-            dir=directory("results/FASTQ/{run}"),
+            r1=temp(touch("results/FASTQse/{run}/{run}_1.fastq.gz")),
+            r2=temp(touch("results/FASTQse/{run}/{run}_2.fastq.gz")),
+            single=touch("results/FASTQse/{run}/{run}.fastq.gz"),
+            dir=directory("results/FASTQse/{run}"),
         params:
             library_type=lambda wildcards: "--split-files"
             if get_library_type(wildcards.run) == "PAIRED"
@@ -49,6 +49,28 @@ if not config["FASTQ"]["activate"]:
                     --gzip &>{log}
             """
 
+    rule repair_pe:
+        input:
+            reads=lambda wildcards: [
+                rules.dump_fastq.output.r1,
+                rules.dump_fastq.output.r2,
+            ]
+            if get_library_type(wildcards.run) == "PAIRED"
+            else [],
+        output:
+            out=expand(
+                "results/FASTQpe/{{run}}/{{run}}_{read}.fastq.gz",
+                read=[1, 2],
+            ),
+        log:
+            "logs/repair/{run}.log",
+        params:
+            command="repair.sh",
+        resources:
+            mem_mb=config["BBMAP"]["memory"],
+        wrapper:
+            "v3.8.0/bio/bbtools"
+
     rule remove_junk:
         input:
             rules.dump_fastq.output.dir,
@@ -56,5 +78,5 @@ if not config["FASTQ"]["activate"]:
             "logs/downloading/{run}.remove_junk.log",
         shell:
             """
-            (find {input} ! -name '.*' -type f -size 0 -delete -print && echo Junk is removed!) &>{log}
+            (find {input} -type f -size 0 -delete -print && echo Junk is removed!) &>{log}
             """

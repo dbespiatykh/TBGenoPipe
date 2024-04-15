@@ -25,8 +25,8 @@ else:
         input:
             rules.remove_junk.log,
             reads=lambda wildcards: [
-                rules.dump_fastq.output.r1,
-                rules.dump_fastq.output.r2,
+                rules.repair_pe.output.out[0],
+                rules.repair_pe.output.out[1],
             ]
             if get_library_type(wildcards.run) == "PAIRED"
             else [
