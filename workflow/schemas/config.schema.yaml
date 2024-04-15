@@ -101,6 +101,15 @@ properties:
       - threads
       - memory
 
+  BBMAP:
+    type: object
+    properties:
+      memory:
+        type: integer
+        default: 1024
+    required:
+      - memory
+
   BCFTOOLS:
     type: object
     properties:
