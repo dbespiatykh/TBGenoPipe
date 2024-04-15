@@ -35,6 +35,9 @@ FASTQC:
   threads: 4 # Threads for FastQC
   memory: 1024 # Memory for FastQC
 
+BBMAP:
+  memory: 1024 # Memory for repair.sh
+
 BCFTOOLS:
   mpileup:
     threads: 4 # Threads for Bcftools mpileup
