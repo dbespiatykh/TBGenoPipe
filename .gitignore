@@ -103,5 +103,6 @@ remove_results.sh
 formatting.sh
 resources/
 workflow/envs/kma.yaml
+config/bak_config.yaml
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,sublimetext
