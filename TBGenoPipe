@@ -1,25 +1,35 @@
 #!/usr/bin/env bash
 
-config="config/config.yaml"
+# TBGenoPipe - a wrapper script for the TBGenoPipe Snakemake pipeline.
+# This wrapper script is intended to be kept within the working directory.
+# Moving it out of this directory will cause it to malfunction.
+# Please ensure that this script is placed in the designated working directory to ensure proper operation.
+# It can be symlinked to a directory in your PATH.
+
+# Function to display usage information
+display_usage() {
+    echo "Usage: $0 -t/--threads <num_threads> -i/--input <input_path> -o/--output <output_directory> --type <sra/fastq> [--test]"
+    exit 1
+}
 
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do
-    key="$1"
-    case $key in
+    case $1 in
     -t | --threads)
         THREADS="$2"
-        shift
-        shift
+        shift 2
         ;;
     -i | --input)
         INPUT="$2"
-        shift
-        shift
+        shift 2
+        ;;
+    -o | --output)
+        OUTPUT="$2"
+        shift 2
         ;;
     --type)
         TYPE="$2"
-        shift
-        shift
+        shift 2
         ;;
     --test)
         TEST=true
@@ -27,36 +37,56 @@ while [[ $# -gt 0 ]]; do
         ;;
     *)
         echo "Unknown option: $1"
-        exit 1
+        display_usage
         ;;
     esac
 done
 
 # Check if mandatory arguments are provided
 if [[ -z $THREADS || -z $INPUT || -z $TYPE ]]; then
-    echo "Usage: TbGenoPipe -t/--threads <num_threads> -i/--input <input_path> --type <sra/fastq> [--test]"
-    exit 1
+    display_usage
 fi
 
-# Replace the appropriate path in the config file based on the type
+# Define variables
+os="$(uname)"
+prog_dir="$(dirname "$(readlink -f "$0")")"
+config_dir="$prog_dir/config"
+config_file="$config_dir/config.yaml"
+config_git="config/config.yaml"
+input_file="$(realpath "$INPUT")"
+
+if [[ "$os" == "Darwin" ]]; then
+    sed_cmd=(sed -i '')
+else
+    sed_cmd=(sed -i)
+fi
+
+# Replace the appropriate path in the config file based on the type of input
 if [[ $TYPE == "sra" ]]; then
-    sed -i "s|^  runs:[[:space:]]*[^[:space:]]*|  runs: $INPUT|" "$config"
-    sed -i "s|activate: .*|activate: false|" "$config"
+    "${sed_cmd[@]}" "s|^  runs:[[:space:]]*[^[:space:]]*|  runs: $input_file|" "$config_file"
+    "${sed_cmd[@]}" "s|activate: .*|activate: false|" "$config_file"
 elif [[ $TYPE == "fastq" ]]; then
-    sed -i "s|^  reads:[[:space:]]*[^[:space:]]*|  reads: $INPUT|" "$config"
-    sed -i "s|activate: .*|activate: true|" "$config"
+    "${sed_cmd[@]}" "s|^  reads:[[:space:]]*[^[:space:]]*|  reads: $input_file|" "$config_file"
+    "${sed_cmd[@]}" "s|activate: .*|activate: true|" "$config_file"
 else
     echo "Invalid type. Use 'sra' for SRA runs and 'fastq' for FASTQ reads."
     exit 1
 fi
 
+# Replace output directory if provided
+if [[ -n $OUTPUT ]]; then
+    output_dir="$(realpath "$OUTPUT")"
+    "${sed_cmd[@]}" "s|^  output_directory:[[:space:]]*[^[:space:]]*|  output_directory: $output_dir|" "$config_file"
+fi
+
 # Run snakemake with provided arguments
 if [[ $TEST ]]; then
     echo "Running in dry-run mode"
-    snakemake --conda-frontend mamba -np
+    echo
+    (cd "$prog_dir" && snakemake --conda-frontend mamba -np)
 else
-    snakemake --conda-frontend mamba --use-conda -c "$THREADS" --keep-going --retries 3 --rerun-incomplete
+    (cd "$prog_dir" && snakemake --conda-frontend mamba --use-conda -c "$THREADS" --keep-going --retries 3 --rerun-incomplete)
 fi
 
-# Restore original config files
-#git checkout -- "$config"
+# Restore original config file
+(cd "$prog_dir" && git checkout -- "$config_git")
