@@ -4,7 +4,14 @@ description: snakemake configuration file
 
 type: object
 
-properties:
+  OUTPUT:
+    type: object
+    properties:
+      output_directory:
+        type: string
+    required:
+      - output_directory
+
   FILES:
     type: object
     properties:
@@ -141,6 +148,7 @@ properties:
       - stats
 
 required:
+  - OUTPUT
   - FILES
   - LINKS
   - REFERENCE
