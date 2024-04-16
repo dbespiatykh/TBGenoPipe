@@ -19,7 +19,7 @@ chmod +x TBGenoPipe
 ./TBGenoPipe -t 6 --type fastq -i config/reads_PE_SE.tsv --test
 
 # run
-./TBGenoPipe -t 6 --type fastq -i config/reads_PE_SE.tsv
+./TBGenoPipe -t 6 --type fastq -i config/reads_PE_SE.tsv -o results_output
 ```
 
 #### Docker
@@ -45,11 +45,11 @@ sudo docker run \
 	-rm \
 	-v "$(pwd)":/mnt/TBGenoPipe \
 	--platform linux/amd64 snakemake/snakemake:stable \
-	bash -c "cd /mnt/TBGenoPipe && ./TBGenoPipe -t 6 --type fastq -i config/reads_PE_SE.tsv"
+	bash -c "cd /mnt/TBGenoPipe && ./TBGenoPipe -t 6 --type fastq -i config/reads_PE_SE.tsv -o results_output"
 ```
 
 ### Usage
 
 ```bash
-./TbGenoPipe -t/--threads <num_threads> -i/--input <input_path> --type <sra/fastq> [--test]
+./TBGenoPipe -t/--threads <num_threads> -i/--input <input_path> -o/--output <output_directory> --type <sra/fastq> [--test]
 ```
