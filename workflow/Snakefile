@@ -4,10 +4,20 @@ include: "rules/00_common.smk"
 ## Target rule -----------------------------------------------
 rule all:
     input:
-        expand("results/VCF/{run}.vcf.gz", run=accessions.index)
+        expand(
+            "{outdir}/VCF/{run}.vcf.gz",
+            outdir=config["OUTPUT"]["output_directory"],
+            run=accessions.index,
+        )
         if not config["FASTQ"]["activate"]
-        else (expand("results/VCF/{run}.vcf.gz", run=reads.index)),
-        "results/stats/multiqc/multiqc_data",
+        else (
+            expand(
+                "{outdir}/VCF/{run}.vcf.gz",
+                outdir=config["OUTPUT"]["output_directory"],
+                run=reads.index,
+            )
+        ),
+        (config["OUTPUT"]["output_directory"] + "/stats/multiqc/multiqc_data"),
 
 
 ## Workflow rules --------------------------------------------

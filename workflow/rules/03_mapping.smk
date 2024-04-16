@@ -5,10 +5,10 @@ if config["FASTQ"]["activate"]:
             reads=get_fastq,
             idx=rules.bwa_mem2_index.output,
         output:
-            bam=protected("results/BAM/{run}.bam"),
-            index=protected("results/BAM/{run}.bam.bai"),
+            bam=protected(config["OUTPUT"]["output_directory"] + "/BAM/{run}.bam"),
+            index=protected(config["OUTPUT"]["output_directory"] + "/BAM/{run}.bam.bai"),
         log:
-            "logs/bwa/mem_sambamba/{run}.log",
+            (config["OUTPUT"]["output_directory"] + "/logs/bwa/mem_sambamba/{run}.log"),
         params:
             extra=r"-R '@RG\tID:{run}\tSM:{run}\tPL:ILLUMINA\tLB:{run}'",
             samblaster_extra=lambda wildcards: "--ignoreUnmated"
@@ -34,10 +34,10 @@ else:
             ],
             idx=rules.bwa_mem2_index.output,
         output:
-            bam=protected("results/BAM/{run}.bam"),
-            index=protected("results/BAM/{run}.bam.bai"),
+            bam=protected(config["OUTPUT"]["output_directory"] + "/BAM/{run}.bam"),
+            index=protected(config["OUTPUT"]["output_directory"] + "/BAM/{run}.bam.bai"),
         log:
-            "logs/bwa/mem_sambamba/{run}.log",
+            (config["OUTPUT"]["output_directory"] + "/logs/bwa/mem_sambamba/{run}.log"),
         params:
             extra=r"-R '@RG\tID:{run}\tSM:{run}\tPL:ILLUMINA\tLB:{run}'",
             samblaster_extra=lambda wildcards: "--ignoreUnmated"

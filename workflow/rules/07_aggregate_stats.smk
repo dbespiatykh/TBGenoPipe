@@ -2,35 +2,56 @@ rule multiqc:
     input:
         [
             expand(
-                "results/stats/samtools_stats/{run}.samtools.txt",
+                "{outdir}/stats/samtools_stats/{run}.samtools.txt",
+                outdir=config["OUTPUT"]["output_directory"],
                 run=accessions.index,
             ),
             expand(
-                "results/stats/mosdepth/{run}.mosdepth.summary.txt",
+                "{outdir}/stats/mosdepth/{run}.mosdepth.summary.txt",
+                outdir=config["OUTPUT"]["output_directory"],
                 run=accessions.index,
             ),
-            expand("results/stats/fastqc/{run}_fastqc.zip", run=accessions.index),
             expand(
-                "results/stats/bcftools_stats/{run}.bcftools.txt",
+                "{outdir}/stats/fastqc/{run}_fastqc.zip",
+                outdir=config["OUTPUT"]["output_directory"],
+                run=accessions.index,
+            ),
+            expand(
+                "{outdir}/stats/bcftools_stats/{run}.bcftools.txt",
+                outdir=config["OUTPUT"]["output_directory"],
                 run=accessions.index,
             ),
         ]
         if not config["FASTQ"]["activate"]
         else [
-            expand("results/stats/samtools_stats/{run}.samtools.txt", run=reads.index),
             expand(
-                "results/stats/mosdepth/{run}.mosdepth.summary.txt", run=reads.index
+                "{outdir}/stats/samtools_stats/{run}.samtools.txt",
+                outdir=config["OUTPUT"]["output_directory"],
+                run=reads.index,
             ),
-            expand("results/stats/fastqc/{run}_fastqc.zip", run=reads.index),
-            expand("results/stats/bcftools_stats/{run}.bcftools.txt", run=reads.index),
+            expand(
+                "{outdir}/stats/mosdepth/{run}.mosdepth.summary.txt",
+                outdir=config["OUTPUT"]["output_directory"],
+                run=reads.index,
+            ),
+            expand(
+                "{outdir}/stats/fastqc/{run}_fastqc.zip",
+                outdir=config["OUTPUT"]["output_directory"],
+                run=reads.index,
+            ),
+            expand(
+                "{outdir}/stats/bcftools_stats/{run}.bcftools.txt",
+                outdir=config["OUTPUT"]["output_directory"],
+                run=reads.index,
+            ),
         ],
     output:
-        "results/stats/multiqc/multiqc.html",
-        directory("results/stats/multiqc/multiqc_data"),
+        (config["OUTPUT"]["output_directory"] + "/stats/multiqc/multiqc.html"),
+        directory(config["OUTPUT"]["output_directory"] + "/stats/multiqc/multiqc_data"),
     params:
         extra="--data-dir",
         use_input_files_only=False,
     log:
-        "logs/multiqc/mapping.log",
+        (config["OUTPUT"]["output_directory"] + "/multiqc/mapping.log"),
     wrapper:
         "v3.8.0/bio/multiqc"

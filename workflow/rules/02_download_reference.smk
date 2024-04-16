@@ -3,7 +3,7 @@ rule download_reference:
         archive=temp(config["REFERENCE"]["archive"]),
         fasta=config["REFERENCE"]["fasta"],
     log:
-        "logs/downloading/get_reference.log",
+        (config["OUTPUT"]["output_directory"] + "/logs/downloading/get_reference.log"),
     conda:
         "../envs/get_tools.yaml"
     params:
@@ -31,7 +31,7 @@ rule bwa_mem2_index:
             ".pac",
         ),
     log:
-        "logs/bwa/reference_index.log",
+        (config["OUTPUT"]["output_directory"] + "/logs/bwa/reference_index.log"),
     wrapper:
         "v3.8.0/bio/bwa-mem2/index"
 
@@ -42,6 +42,6 @@ rule samtools_genome_index:
     output:
         "resources/ref/NC_000962.3.fa.fai",
     log:
-        "logs/samtools/ref_index.log",
+        (config["OUTPUT"]["output_directory"] + "/logs/samtools/ref_index.log"),
     wrapper:
         "v3.8.0/bio/samtools/faidx"

@@ -2,14 +2,21 @@ if not config["FASTQ"]["activate"]:
 
     rule download_sra:
         output:
-            sra=temp(touch("results/SRA/{run}.sra")),
+            sra=temp(touch(config["OUTPUT"]["output_directory"] + "/SRA/{run}.sra")),
         log:
-            "logs/downloading/{run}.downloading.log",
+            (
+                config["OUTPUT"]["output_directory"]
+                + "/logs/downloading/{run}.downloading.log"
+            ),
         conda:
             "../envs/get_tools.yaml"
         params:
             threads=config["KINGFISHER"]["threads"],
-            directory=config["KINGFISHER"]["directory"],
+            directory=(
+                config["OUTPUT"]["output_directory"]
+                + "/"
+                + config["KINGFISHER"]["directory"]
+            ),
         shell:
             """
             kingfisher get \
@@ -25,17 +32,32 @@ if not config["FASTQ"]["activate"]:
         input:
             rules.download_sra.output.sra,
         output:
-            r1=temp(touch("results/FASTQse/{run}/{run}_1.fastq.gz")),
-            r2=temp(touch("results/FASTQse/{run}/{run}_2.fastq.gz")),
-            single=touch("results/FASTQse/{run}/{run}.fastq.gz"),
-            dir=directory("results/FASTQse/{run}"),
+            r1=temp(
+                touch(
+                    config["OUTPUT"]["output_directory"]
+                    + "/FASTQse/{run}/{run}_1.fastq.gz"
+                )
+            ),
+            r2=temp(
+                touch(
+                    config["OUTPUT"]["output_directory"]
+                    + "/FASTQse/{run}/{run}_2.fastq.gz"
+                )
+            ),
+            single=touch(
+                config["OUTPUT"]["output_directory"] + "/FASTQse/{run}/{run}.fastq.gz"
+            ),
+            dir=directory(config["OUTPUT"]["output_directory"] + "/FASTQse/{run}"),
         params:
             library_type=lambda wildcards: "--split-files"
             if get_library_type(wildcards.run) == "PAIRED"
             else "",
             threads=config["PARALLEL-FASTQ-DUMP"]["threads"],
         log:
-            "logs/downloading/{run}.dumping.log",
+            (
+                config["OUTPUT"]["output_directory"]
+                + "/logs/downloading/{run}.dumping.log"
+            ),
         conda:
             "../envs/get_tools.yaml"
         shell:
@@ -59,11 +81,12 @@ if not config["FASTQ"]["activate"]:
             else [],
         output:
             out=expand(
-                "results/FASTQpe/{{run}}/{{run}}_{read}.fastq.gz",
+                "{outdir}/FASTQpe/{{run}}/{{run}}_{read}.fastq.gz",
+                outdir=config["OUTPUT"]["output_directory"],
                 read=[1, 2],
             ),
         log:
-            "logs/repair/{run}.log",
+            (config["OUTPUT"]["output_directory"] + "/logs/repair/{run}.log"),
         params:
             command="repair.sh",
         resources:
@@ -75,7 +98,10 @@ if not config["FASTQ"]["activate"]:
         input:
             rules.dump_fastq.output.dir,
         log:
-            "logs/downloading/{run}.remove_junk.log",
+            (
+                config["OUTPUT"]["output_directory"]
+                + "/logs/downloading/{run}.remove_junk.log"
+            ),
         shell:
             """
             (find {input} -type f -size 0 -delete -print && echo Junk is removed!) &>{log}
