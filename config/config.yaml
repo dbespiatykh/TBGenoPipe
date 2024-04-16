@@ -1,4 +1,6 @@
 # You can adjust the parameters according to your setup
+OUTPUT:
+  output_directory: results
 
 FILES:
   runs: config/accessions_PE_SE.tsv # The path to the tab-separated file with run accessions
@@ -20,7 +22,7 @@ REFERENCE:
 
 KINGFISHER:
   threads: 4 # Threads for kingfisher get
-  directory: results/SRA # Direcory for output SRA files
+  directory: SRA # Direcory for output SRA files
 
 PARALLEL-FASTQ-DUMP:
   threads: 4 # Threads for parallel-fastq-dump
