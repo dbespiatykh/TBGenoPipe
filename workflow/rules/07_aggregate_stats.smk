@@ -52,6 +52,6 @@ rule multiqc:
         extra="--data-dir",
         use_input_files_only=False,
     log:
-        (config["OUTPUT"]["output_directory"] + "/multiqc/mapping.log"),
+        (config["OUTPUT"]["output_directory"] + "/logs/multiqc/mapping.log"),
     wrapper:
         "v3.8.0/bio/multiqc"
