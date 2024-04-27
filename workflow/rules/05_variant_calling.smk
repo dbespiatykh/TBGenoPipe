@@ -45,7 +45,7 @@ rule bcftools_call:
         calls=temp(config["OUTPUT"]["output_directory"] + "/BCF/{run}.calls.bcf"),
     params:
         uncompressed_bcf=True,
-        caller="--consensus-caller",
+        caller="--multiallelic-caller",
         extra="--ploidy 1 --variants-only",
     log:
         (config["OUTPUT"]["output_directory"] + "/logs/bcftools/call/{run}.log"),
