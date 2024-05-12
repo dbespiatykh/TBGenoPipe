@@ -50,7 +50,7 @@ sudo docker run \
 
 ### Usage
 
-```bash
+```
 TBGenoPipe (A pipilene for Mycobacterium tuberculoisis genomic analysis)
 
 Usage: TBGenoPipe [options]
