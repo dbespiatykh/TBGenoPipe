@@ -51,5 +51,14 @@ sudo docker run \
 ### Usage
 
 ```bash
-./TBGenoPipe -t/--threads <num_threads> -i/--input <input_path> -o/--output <output_directory> --type <sra/fastq> [--test]
+TBGenoPipe (A pipilene for Mycobacterium tuberculoisis genomic analysis)
+
+Usage: TBGenoPipe [options]
+
+Options:
+--type [sra/fastq]                   Type of the input data
+-i, --input                          Input samples table
+-o, --output                         Output directory
+-t, --threads                        Number of threads to use
+--test                               Run pipeline in a dry-run mode
 ```
