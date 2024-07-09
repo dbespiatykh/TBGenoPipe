@@ -1,8 +1,17 @@
 To make samples table with your PE reads, you can use the following code:
 
 ```bash
-for f in "$(realpath reads_folder/*_R1.fastq.gz)"; do printf '%s\t%s\t%s\n' "$(basename "$f" _R1.fastq.gz)" "$f" "${f%_R1.fastq.gz}_R2.fastq.gz"; done | sed -E -e '1iRun\tR1\tR2' >samples.tsv
+#!/usr/bin/env bash
+
+echo -e "Run\tR1\tR2" > samples.tsv
+
+for f in reads/*_1.fastq.gz; do
+    full_path=$(realpath "$f")
+    base=$(basename "$f" _1.fastq.gz)
+    r2_path="${full_path%_1.fastq.gz}_2.fastq.gz"
+    printf '%s\t%s\t%s\n' "$base" "$full_path" "$r2_path" >> samples.tsv
+done
 ```
 
 > [!NOTE]
-> Change "reads_folder", "R1", and "R2" to suitable in your case values
+> Change directory `reads`, and `_1`, and `_2` to suitable in your case values
