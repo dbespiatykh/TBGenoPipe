@@ -54,4 +54,4 @@ rule multiqc:
     log:
         (config["OUTPUT"]["output_directory"] + "/logs/multiqc/mapping.log"),
     wrapper:
-        "v3.8.0/bio/multiqc"
+        "v3.13.8/bio/multiqc"

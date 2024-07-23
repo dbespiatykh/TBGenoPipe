@@ -14,4 +14,4 @@ rule bcftools_stats:
         ),
     threads: config["BCFTOOLS"]["stats"]["threads"]
     wrapper:
-        "v3.8.0/bio/bcftools/stats"
+        "v3.13.8/bio/bcftools/stats"

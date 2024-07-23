@@ -18,7 +18,7 @@ rule bedtools_complement_bed:
     log:
         (config["OUTPUT"]["output_directory"] + "/logs/bedtools/complement_bed.log"),
     wrapper:
-        "v3.8.0/bio/bedtools/complement"
+        "v3.13.8/bio/bedtools/complement"
 
 
 rule bcftools_mpileup:
@@ -35,7 +35,7 @@ rule bcftools_mpileup:
         (config["OUTPUT"]["output_directory"] + "/logs/bcftools/mpileup/{run}.log"),
     threads: config["BCFTOOLS"]["mpileup"]["threads"]
     wrapper:
-        "v3.8.0/bio/bcftools/mpileup"
+        "v3.13.8/bio/bcftools/mpileup"
 
 
 rule bcftools_call:
@@ -51,7 +51,7 @@ rule bcftools_call:
         (config["OUTPUT"]["output_directory"] + "/logs/bcftools/call/{run}.log"),
     threads: config["BCFTOOLS"]["call"]["threads"]
     wrapper:
-        "v3.8.0/bio/bcftools/call"
+        "v3.13.8/bio/bcftools/call"
 
 
 rule bcftools_view:
@@ -66,7 +66,7 @@ rule bcftools_view:
         extra="--include 'QUAL>20 && DP>10' --types snps",
     threads: config["BCFTOOLS"]["view"]["threads"]
     wrapper:
-        "v3.8.0/bio/bcftools/view"
+        "v3.13.8/bio/bcftools/view"
 
 
 rule bcftools_index:
@@ -78,4 +78,4 @@ rule bcftools_index:
         (config["OUTPUT"]["output_directory"] + "/logs/bcftools/index/{run}.log"),
     threads: config["BCFTOOLS"]["index"]["threads"]
     wrapper:
-        "v3.8.0/bio/bcftools/index"
+        "v3.13.8/bio/bcftools/index"
