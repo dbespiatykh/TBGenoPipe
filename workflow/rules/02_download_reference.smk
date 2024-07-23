@@ -33,7 +33,7 @@ rule bwa_mem2_index:
     log:
         (config["OUTPUT"]["output_directory"] + "/logs/bwa/reference_index.log"),
     wrapper:
-        "v3.8.0/bio/bwa-mem2/index"
+        "v3.13.8/bio/bwa-mem2/index"
 
 
 rule samtools_genome_index:
@@ -44,4 +44,4 @@ rule samtools_genome_index:
     log:
         (config["OUTPUT"]["output_directory"] + "/logs/samtools/ref_index.log"),
     wrapper:
-        "v3.8.0/bio/samtools/faidx"
+        "v3.13.8/bio/samtools/faidx"
