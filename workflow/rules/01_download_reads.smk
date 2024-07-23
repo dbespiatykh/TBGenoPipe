@@ -49,9 +49,9 @@ if not config["FASTQ"]["activate"]:
             ),
             dir=directory(config["OUTPUT"]["output_directory"] + "/FASTQse/{run}"),
         params:
-            library_type=lambda wildcards: "--split-files"
-            if get_library_type(wildcards.run) == "PAIRED"
-            else "",
+            library_type=lambda wildcards: (
+                "--split-files" if get_library_type(wildcards.run) == "PAIRED" else ""
+            ),
             threads=config["PARALLEL-FASTQ-DUMP"]["threads"],
         log:
             (
@@ -73,12 +73,14 @@ if not config["FASTQ"]["activate"]:
 
     rule repair_pe:
         input:
-            reads=lambda wildcards: [
-                rules.dump_fastq.output.r1,
-                rules.dump_fastq.output.r2,
-            ]
-            if get_library_type(wildcards.run) == "PAIRED"
-            else [],
+            reads=lambda wildcards: (
+                [
+                    rules.dump_fastq.output.r1,
+                    rules.dump_fastq.output.r2,
+                ]
+                if get_library_type(wildcards.run) == "PAIRED"
+                else []
+            ),
         output:
             out=expand(
                 "{outdir}/FASTQpe/{{run}}/{{run}}_{read}.fastq.gz",
