@@ -1,12 +1,14 @@
 <img align ="left" src=logo.svg width=250px style="padding-right: 25px; padding-top: 0x;">
 
-Tuberculosis Genomic Pipeline
+**Tuberculosis Genomic Pipeline**
+<br/><br/>
+<hr>
 
 [![Tests](https://github.com/dbespiatykh/TBGenoPipe/actions/workflows/main.yml/badge.svg)](https://github.com/dbespiatykh/TBGenoPipe/actions/workflows/main.yml)
 
-### Installation
+## Installation
 
-#### Conda
+### Conda
 
 ```bash
 git clone https://github.com/dbespiatykh/TBGenoPipe.git && cd TBGenoPipe
@@ -24,7 +26,7 @@ chmod +x TBGenoPipe
 ./TBGenoPipe -t 6 --type fastq -i config/reads_PE_SE.tsv -o results_output
 ```
 
-#### Docker
+### Docker
 
 ```bash
 git clone https://github.com/dbespiatykh/TBGenoPipe.git && cd TBGenoPipe
@@ -50,7 +52,7 @@ sudo docker run \
 	bash -c "cd /mnt/TBGenoPipe && ./TBGenoPipe -t 6 --type fastq -i config/reads_PE_SE.tsv -o results_output"
 ```
 
-### Usage
+## Usage
 
 ```
 TBGenoPipe (A pipilene for Mycobacterium tuberculoisis genomic analysis)
