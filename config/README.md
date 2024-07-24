@@ -1,4 +1,4 @@
-To make samples table with your PE reads, you can use the following code:
+**To make samples table with your PE reads, you can use the following code:**
 
 ```bash
 #!/usr/bin/env bash
@@ -16,7 +16,9 @@ done
 > [!NOTE]
 > Change directory `reads`, and `_1`, and `_2` to suitable in your case values
 
-To make samples table from a list of SRA accessions, you can use the following code:
+<hr>
+
+**To make samples table from a list of SRA accessions, you can use the following code:**
 
 ```bash
 #!/usr/bin/env bash
@@ -31,3 +33,5 @@ epost -db sra -input "$input" |
   sed 's/<PAIRED\/>/PAIRED/g; s/<SINGLE\/>/SINGLE/g' |
   xtract -pattern DocumentSummary -element Runs/Run@acc -block Library_descriptor -element LIBRARY_LAYOUT >>"$file"
 ```
+> [!NOTE]
+> Requires [Entrez Direct (EDirect)](https://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/).
