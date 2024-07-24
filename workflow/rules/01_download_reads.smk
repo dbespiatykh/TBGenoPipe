@@ -2,19 +2,19 @@ if not config["FASTQ"]["activate"]:
 
     rule download_sra:
         output:
-            sra=temp(touch(opj(results_dir, "SRA", "{run}.sra"))),
+            sra=temp(touch(opj(results_dir, "SRA", "{run}", "{run}.sra"))),
+            dir=directory((opj(results_dir, "SRA", "{run}"))),
         log:
             opj(logs_dir, "downloading", "{run}.downloading.log"),
         conda:
             "../envs/get_tools.yaml"
         params:
             threads=config["KINGFISHER"]["threads"],
-            directory=(opj(results_dir, config["KINGFISHER"]["directory"])),
         shell:
             """
             kingfisher get \
                     -r {wildcards.run} \
-                    --output-directory {params.directory} \
+                    --output-directory {output.dir} \
                     -m aws-http aws-cp prefetch \
                     -f sra \
                     --download-threads {params.threads} \
@@ -78,6 +78,8 @@ if not config["FASTQ"]["activate"]:
             rules.dump_fastq.output.dir,
         log:
             opj(logs_dir, "downloading", "{run}.remove_junk.log"),
+        conda:
+            "../envs/get_tools.yaml"
         shell:
             """
             (find {input} -type f -size 0 -delete -print && echo Junk is removed!) &>{log}
