@@ -66,3 +66,6 @@ Options:
 -t, --threads                        Number of threads to use
 --test                               Run pipeline in a dry-run mode
 ```
+
+> [!IMPORTANT]  
+> Instructions for input table formats can be found [here](https://github.com/dbespiatykh/TBGenoPipe/tree/main/config#readme).
