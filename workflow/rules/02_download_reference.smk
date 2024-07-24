@@ -1,9 +1,9 @@
 rule download_reference:
     output:
-        archive=temp(config["REFERENCE"]["archive"]),
-        fasta=config["REFERENCE"]["fasta"],
+        archive=temp(opj(resources_dir, "ref", config["REFERENCE"]["archive"])),
+        fasta=opj(resources_dir, "ref", config["REFERENCE"]["fasta"]),
     log:
-        (config["OUTPUT"]["output_directory"] + "/logs/downloading/get_reference.log"),
+        opj(logs_dir, "downloading", "get_reference.log"),
     conda:
         "../envs/get_tools.yaml"
     params:
@@ -23,7 +23,7 @@ rule bwa_mem2_index:
         rules.download_reference.output.fasta,
     output:
         multiext(
-            "resources/ref/NC_000962.3.fa",
+            opj(resources_dir, "ref", "NC_000962.3.fa"),
             ".0123",
             ".amb",
             ".ann",
@@ -31,7 +31,7 @@ rule bwa_mem2_index:
             ".pac",
         ),
     log:
-        (config["OUTPUT"]["output_directory"] + "/logs/bwa/reference_index.log"),
+        opj(logs_dir, "bwa", "reference_index.log"),
     wrapper:
         "v3.13.8/bio/bwa-mem2/index"
 
@@ -40,8 +40,8 @@ rule samtools_genome_index:
     input:
         rules.download_reference.output.fasta,
     output:
-        "resources/ref/NC_000962.3.fa.fai",
+        opj(resources_dir, "ref", "NC_000962.3.fa.fai"),
     log:
-        (config["OUTPUT"]["output_directory"] + "/logs/samtools/ref_index.log"),
+        opj(logs_dir, "samtools" "ref_index.log"),
     wrapper:
         "v3.13.8/bio/samtools/faidx"

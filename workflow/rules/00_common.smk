@@ -1,3 +1,5 @@
+import os
+from os.path import join as opj
 import pandas as pd
 from snakemake.utils import validate
 from snakemake.utils import min_version
@@ -6,6 +8,12 @@ min_version("7.18.2")
 
 
 configfile: "config/config.yaml"
+
+
+results_dir = opj(config["OUTPUT"]["output_directory"])
+resources_dir = opj(config["OUTPUT"]["output_directory"], "resources")
+stats_dir = opj(config["OUTPUT"]["output_directory"], "stats")
+logs_dir = opj(config["OUTPUT"]["output_directory"], "logs")
 
 
 if config["FASTQ"]["activate"]:

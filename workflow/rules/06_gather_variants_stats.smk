@@ -3,15 +3,9 @@ rule bcftools_stats:
         rules.bcftools_view.output,
         index=rules.bcftools_index.output,
     output:
-        touch(
-            config["OUTPUT"]["output_directory"]
-            + "/stats/bcftools_stats/{run}.bcftools.txt"
-        ),
+        touch(opj(stats_dir, "bcftools_stats", "{run}.bcftools.txt")),
     log:
-        (
-            config["OUTPUT"]["output_directory"]
-            + "/stats/bcftools_stats/{run}.bcftools.txt"
-        ),
+        opj(logs_dir, "stats", "bcftools_stats", "{run}.bcftools.txt"),
     threads: config["BCFTOOLS"]["stats"]["threads"]
     wrapper:
         "v3.13.8/bio/bcftools/stats"
