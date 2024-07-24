@@ -7,7 +7,7 @@ FILES:
   reads: config/reads_PE_SE.tsv # The path to the tab-separated file with reads paths
 
 FASTQ:
-  activate: true
+  activate: false
 
 LINKS:
   mask: https://raw.githubusercontent.com/mbhall88/head_to_head_pipeline/master/analysis/baseline_variants/resources/compass-mask.bed
@@ -15,10 +15,8 @@ LINKS:
 REFERENCE:
   refseq-accession:
     - GCF_000195955.2 # Mycobacterium tuberculosis H37Rv RefSeq assembly accession number
-  archive:
-    - resources/ref/GCF_000195955.2.zip # NCBI datasets archive name and location
-  fasta:
-    - resources/ref/NC_000962.3.fa # Reference filename and location
+  archive: GCF_000195955.2.zip # NCBI datasets archive name
+  fasta: NC_000962.3.fa # Reference filename
 
 KINGFISHER:
   threads: 4 # Threads for kingfisher get

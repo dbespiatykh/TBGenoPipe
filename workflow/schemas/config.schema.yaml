@@ -45,12 +45,12 @@ type: object
         type: array
         items:
           type: string
-          default: "resources/ref/GCF_000195955.2.zip"
+          default: "GCF_000195955.2.zip"
       fasta:
         type: array
         items:
           type: string
-          default: "resources/ref/NC_000962.3.fna"
+          default: "NC_000962.3.fna"
     required:
       - refseq-accession
       - archive
