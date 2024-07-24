@@ -1,6 +1,8 @@
-# TBGenoPipe
+<img align ="left" src=logo.svg width=250px style="padding-right: 25px; padding-top: 0x;">
 
 Tuberculosis Genomic Pipeline
+
+[![Tests](https://github.com/dbespiatykh/TBGenoPipe/actions/workflows/main.yml/badge.svg)](https://github.com/dbespiatykh/TBGenoPipe/actions/workflows/main.yml)
 
 ### Installation
 
