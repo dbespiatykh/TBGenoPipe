@@ -20,7 +20,6 @@ REFERENCE:
 
 KINGFISHER:
   threads: 4 # Threads for kingfisher get
-  directory: SRA # Direcory for output SRA files
 
 PARALLEL-FASTQ-DUMP:
   threads: 4 # Threads for parallel-fastq-dump
