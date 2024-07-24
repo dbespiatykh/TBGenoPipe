@@ -6,6 +6,8 @@ on:
       - main
   pull_request:
     branches_ignore: []
+  paths-ignore:
+    - "**/README.md"
 
 jobs:
   linting:
