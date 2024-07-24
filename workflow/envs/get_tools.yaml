@@ -8,3 +8,4 @@ dependencies:
   - sra-tools>=3.0.5
   - ncbi-datasets-cli
   - unzip
+  - curl
