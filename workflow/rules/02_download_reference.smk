@@ -42,6 +42,6 @@ rule samtools_genome_index:
     output:
         opj(resources_dir, "ref", "NC_000962.3.fa.fai"),
     log:
-        opj(logs_dir, "samtools" "ref_index.log"),
+        opj(logs_dir, "samtools", "ref_index.log"),
     wrapper:
         "v3.13.8/bio/samtools/faidx"
