@@ -4,6 +4,7 @@ if config["FASTQ"]["activate"]:
         input:
             reads=get_fastq,
             idx=rules.bwa_mem2_index.output,
+            index=rules.bwa_mem2_index.output,
         output:
             bam=protected(opj(results_dir, "BAM", "{run}.bam")),
             index=protected(opj(results_dir, "BAM", "{run}.bam.bai")),
@@ -37,6 +38,7 @@ else:
                 ]
             ),
             idx=rules.bwa_mem2_index.output,
+            index=rules.bwa_mem2_index.output,
         output:
             bam=protected(opj(results_dir, "BAM", "{run}.bam")),
             index=protected(opj(results_dir, "BAM", "{run}.bam.bai")),
