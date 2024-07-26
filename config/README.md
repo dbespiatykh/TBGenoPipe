@@ -1,3 +1,15 @@
+## A samples table for PE reads
+
+| Run | R1 | R2 |
+| --- | --- | --- |
+| sample1 | ./path/to/sample1_1.fastq.gz | ./path/to/sample1_2.fastq.gz |
+| sample2 | ./path/to/sample2_1.fastq.gz | ./path/to/sample2_2.fastq.gz |
+
+### Description:
+`Run` - Names of your samples. <br />
+`R1` - Full path to the first FastQ read or to the single-end FastQ read. <br />
+`R1` - Full path to the second FastQ read. <br />
+
 **To make samples table with your PE reads, you can use the following code:**
 
 ```bash
@@ -16,7 +28,16 @@ done
 > [!NOTE]
 > Change directory `reads`, and `_1`, and `_2` to suitable in your case values
 
-<hr>
+## A samples table for SRA accesions
+
+| Run | LibraryLayout |
+| --- | --- |
+| SRR****** | PAIRED |
+| SRR****** | SINGLE |
+
+### Description:
+`Run` - Names of your samples. <br />
+`LibraryLayout` - Type of sequence run layout, paired-end (PAIRED) or single-end (SINGLE).  <br />
 
 **To make samples table from a list of SRA accessions, you can use the following code:**
 
