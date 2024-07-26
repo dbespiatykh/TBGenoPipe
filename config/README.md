@@ -28,7 +28,7 @@ done
 > [!NOTE]
 > Change directory `reads`, and `_1`, and `_2` to suitable in your case values
 
-## A samples table for SRA accesions
+## A samples table for SRA accessions
 
 | Run | LibraryLayout |
 | --- | --- |
@@ -36,7 +36,7 @@ done
 | SRR****** | SINGLE |
 
 ### Description:
-`Run` - Names of your samples. <br />
+`Run` - SRA accession. <br />
 `LibraryLayout` - Type of sequence run layout, paired-end (PAIRED) or single-end (SINGLE).  <br />
 
 **To make samples table from a list of SRA accessions, you can use the following code:**
